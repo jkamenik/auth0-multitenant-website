@@ -2,13 +2,25 @@ extends layout
 
 block content
 
+  - var tenant = {}
+  each t in tenants
+    if t.isActive
+      - tenant = t
+
   img(src="#{user.picture}")
-  h2 Welcome #{user.nickname}!
+  h2 Welcome #{user.nickname} to #{tenant.name}!
+  div Roles: #{user._json.roles}
   div My Tenants:
     - each tenant in tenants
+      if tenant.isVirtual
+        continue
       span(style="margin: 3px")
       - var css = tenant.isActive ? 'color: orange; font-weight: bold;' : '';
         a(href=tenant.url style=css) #{tenant.name}
   br
-  
+
+  pre #{JSON.stringify(user, null, 2)}
+
+  br
+
   a(href='/logout') Logout
