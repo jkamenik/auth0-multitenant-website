@@ -44,7 +44,7 @@ To really see this sample in action, follow the steps in the next few sections t
 ### Auth0 setup
 
 1. Create a new [client](https://manage.auth0.com/#/clients) called "Multi-Tenant Website":
-  * Allowed Callback URL: `http://yourcompany.com:3000/callback`
+  * Allowed Callback URL: `http://127.0.0.1.xip.io:3000/callback`
   * Application Metadata (Advanced Settings):
     * Key: `required_roles`, Value: `Tenant User`
 
@@ -57,6 +57,12 @@ To really see this sample in action, follow the steps in the next few sections t
   * `user4@example.com`
 
 4. Create a [rule](https://manage.auth0.com/#/rules) that will only allow users in the `Tenant User` role (which we will configure shortly) to have access to the website. Simply copy the rule sample in the [Controlling Application Access](https://auth0.com/docs/extensions/authorization-extension#controlling-application-access) section of the **Auth0 Authorization** extension docs page and give it a descriptive name like `authorize-applications`.
+
+#### Xip.io
+
+In the examples we use the Xip.io service to translate a DNS into an IP address.  This is useful in testing OpenID and OAuth without needing to modify system setting like `/etc/hosts`.
+
+Full details of the service are [here](http://xip.io).
 
 ### Auth0 Authorization extension setup
 
@@ -82,33 +88,25 @@ To really see this sample in action, follow the steps in the next few sections t
 
 ### Local setup
 
-1. Add the following entries to your `hosts` file (eg. `/etc/hosts`), which will make all the domain names used in this sample resolve to `localhost`:  
-
-  ```
-  127.0.0.1  tenant1.yourcompany.com
-  127.0.0.1  tenant2.yourcompany.com
-  127.0.0.1  yourcompany.com
-  ```
-
-2. Create a `.env` file:  
+1. Create a `.env` file:  
 
   ```
   AUTH0_CLIENT_ID=client-id
   AUTH0_CLIENT_SECRET=client-secret
   AUTH0_DOMAIN=auth0-domain
-  ROOT_DOMAIN=yourcompany.com
+  ROOT_DOMAIN=127.0.0.1.xip.io
   PORT=3000
   ```
 
   where `client-id`, `client-secret`, `auth0-domain` are the settings from your "Multi-Tenant Website" app
 
-3. Install dependencies  
+2. Install dependencies  
 
   ```sh
   npm install
   ```
 
-4. Start the web server  
+3. Start the web server  
 
    ```sh
    npm start
