@@ -12,8 +12,6 @@ block content
   div Roles: #{user._json.roles}
   div My Tenants:
     - each tenant in tenants
-      if tenant.isVirtual
-        continue
       span(style="margin: 3px")
       - var css = tenant.isActive ? 'color: orange; font-weight: bold;' : '';
         a(href=tenant.url style=css) #{tenant.name}
